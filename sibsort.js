@@ -1,5 +1,4 @@
-function sibsort(array)
-{
+function sibsort(array) {
     let gap = array.length;
     while (gap > 1) {
         gap = Math.floor(gap/(4/3))
