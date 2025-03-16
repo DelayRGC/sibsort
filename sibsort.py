@@ -3,10 +3,10 @@ import math
 def sibsort(array):
     gap = len(array)
     while gap > 3:
-        gap = math.floor(gap / (4 / 3))
+        gap = math.floor(gap * .75)
         if gap % 2 == 0:
             gap = gap - 1
-        for index in range(0, len(array)-gap, 2):
+        for index in range(0, len(array) - gap, 2):
             if array[index] > array[index + gap]:
                 array[index], array[index + gap] = array[index + gap], array[index]
         for index in range(1, len(array) - gap, 2):
