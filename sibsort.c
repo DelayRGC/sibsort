@@ -4,8 +4,8 @@ void insertion(int*, unsigned int);
 void sibsort(int* array, unsigned int length) {
     unsigned int gap = length;
     while (gap > 1) {
-        gap = (gap * 3) >> 2;
-        if (!(gap & 1)) {
+        gap = (gap * 3) / 4;
+        if(gap % 2 == 0)
             gap--;
         }
         for (unsigned int index = 0; index < length - gap; index += 2) {
