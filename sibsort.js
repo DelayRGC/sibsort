@@ -19,7 +19,7 @@ function sibsort(array)
 				[array[index], array[index + gap]] = [array[index + gap], array[index]];
 			}
 		}
-		for (let index = 1; index < array.length; index += 2)
+		for (let index = 1; index < array.length - gap; index += 2)
 		{
 			if (array[index] > array[index + gap])
 			{
