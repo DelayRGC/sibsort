@@ -1,25 +1,25 @@
 function sibsort(array)
 {
-	let gap = array.length;
-	while (gap > 1)
+	let gap = array.length; // gap will determine how many indexes apart the comparisons happen
+	while (true)
 	{
-		gap = Math.floor(gap * .75)
-		if (gap % 2 == 0)
+		gap = Math.floor(gap * .75) // shrink gap every loop
+		if (gap % 2 == 0) // keep gap odd
 		{
 			gap--;
 		}
-		if (gap <= 1)
+		if (gap <= 1) // if gap is 1 or lower, break out of the while loop
 		{
-			gap = 1;
+			break;
 		}
-		for (let index = 0; index < array.length - gap; index += 2)
+		for (let index = 0; index < array.length - gap; index += 2) // compare and swap gapped odd-even pairs
 		{
 			if (array[index] > array[index + gap])
 			{
 				[array[index], array[index + gap]] = [array[index + gap], array[index]];
 			}
 		}
-		for (let index = 1; index < array.length - gap; index += 2)
+		for (let index = 1; index < array.length - gap; index += 2) // compare and swap gapped even-odd pairs
 		{
 			if (array[index] > array[index + gap])
 			{
@@ -27,10 +27,10 @@ function sibsort(array)
 			}
 		}
 	}
-	insertion(array);
+	insertion(array); // once gap is 1 or lower, call insertion to finish
 }
 
-function insertion(array)
+function insertion(array) // build a growing sorted list by inserting each piece encountered where it fits in that list
 {
 	for (let index = 1; index < array.length; index++)
 	{
