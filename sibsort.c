@@ -1,42 +1,63 @@
-void sibsort(int*, unsigned int);
-void insertion(int*, unsigned int);
+#include <stdlib.h>
+#include <string.h>
+#include "sibsort.h"
 
-void sibsort(int* array, unsigned int length) {
-    unsigned int gap = length;
-    while (gap > 1) {
-        gap = (gap * 3) / 4;
-        if(gap % 2 == 0)
-            gap--;
-        }
-        for (unsigned int index = 0; index < length - gap; index += 2) {
-            if (array[index] > array[index + gap]) {
-                int tmp = array[index];
-                array[index] = array[index + gap];
-                array[index + gap] = tmp;
-            }
-        }
-        for (unsigned int index = 1; index < length - gap; index += 2) {
-            if (array[index] > array[index + gap]) {
-                int tmp = array[index];
-                array[index] = array[index + gap];
-                array[index + gap] = tmp;
-            }
-        }
-    }
-    insertion(array, length);
+int sibsort(void*, size_t, size_t, int (*)(void*, void*));
+int insertion(void*, size_t, size_t, int (*)(void*, void*));
+
+char* index_value;
+
+/*
+Arguments for both algorithms (compare with qsort()):
+arr: array to sort
+length: number of elements in the array
+size: size of each element in bytes
+cmp: user-defined compare function (*arg1 > *arg2 for ascending order, *arg1 < *arg2 for descending order)*/
+
+int sibsort(void* arr, size_t length, size_t size, int (*cmp)(void*, void*)) {
+	if (arr == NULL || !length || !size || (index_value = (char*)malloc(size)) == NULL) return -1;
+	char* array = (char*)arr;
+	size_t gap = length;
+	while (gap > 1) {
+		gap *= .75;
+		if (gap % 2 == 0) {
+			gap--;
+		}
+		for (size_t index = 0; index < length - gap; index += 2) {
+			char* index_low = array + index * size;
+			char* index_high = index_low + gap * size;
+			if (cmp(index_low, index_high)) {
+				memcpy(index_value, index_low, size);
+				memcpy(index_low, index_high, size);
+				memcpy(index_high, index_value, size);
+			}
+		}
+		for (size_t index = 1; index < length - gap; index += 2) {
+			char* index_low = array + index * size;
+			char* index_high = index_low + gap * size;
+			if (cmp(index_low, index_high)) {
+				memcpy(index_value, index_low, size);
+				memcpy(index_low, index_high, size);
+				memcpy(index_high, index_value, size);
+			}
+		}
+	}
+	return insertion(array, length, size, cmp);
 }
 
-
-void insertion(int* array, unsigned int length) {
-    for (unsigned int index = 1; index < length; index++) {
-        int index_value = array[index];
-        unsigned int pointer = index;
-        while (pointer && array[pointer - 1] > index_value) {
-            array[pointer] = array[pointer - 1];
-            pointer--;
-
-        }
-        array[pointer] = index_value;
-    }
+int insertion(void* arr, size_t length, size_t size, int (*cmp)(void*, void*)) {
+	if (index_value == NULL) index_value = (char*) malloc(size);
+	if (arr == NULL || !length || !size || index_value == NULL) return -1;
+	char* array = (char*)arr;
+	for (size_t index = 1; index < length; index++) {
+		char* pointer = array + index * size;
+		memcpy(index_value, pointer, size);
+		while (pointer > array && cmp(pointer - size, index_value)) {
+			memcpy(pointer, pointer - size, size);
+			pointer -= size;
+		}
+		memcpy(pointer, index_value, size);
+	}
+	free(index_value);
+	return 0;
 }
-//By DelayRGC
