@@ -1,7 +1,7 @@
 static void SibSort(double[] array)
 {
 	int gap = array.length;
-	while (gap > 1)
+	while (true)
 	{
 		gap = (int)Math.floor(gap * .75);
 		if (gap % 2 == 0)
@@ -10,7 +10,7 @@ static void SibSort(double[] array)
 		}
 		if (gap <= 1)
 		{
-			gap = 1;
+			break;
 		}
 		for (int index = 0; index < array.length - gap; index += 2)
 		{
