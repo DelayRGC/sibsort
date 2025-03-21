@@ -1,22 +1,21 @@
 import math
 
 def sibsort(array):
-	gap = len(array) # gap will determine how many indexes apart the comparisons happen
-	while True:
+	gap = len(array) #													gap will determine how many indexes apart the comparisons happen
+	while gap > 3:
 		gap = math.floor(gap * .75)
-		if gap % 2 == 0: # keep gap odd
+		if gap % 2 == 0: #												keep gap odd
 			gap = gap - 1
-		if gap <= 1: # if gap is 1 or lower, break out of the while loop
-			break
-		for index in range(0, len(array) - gap, 2): # compare and swap gapped odd-even pairs
+		for index in range(0, len(array) - gap, 2): #									compare and swap gapped odd-even pairs
 			if array[index] > array[index + gap]:
 				array[index], array[index + gap] = array[index + gap], array[index]
-		for index in range(1, len(array) - gap, 2): # // compare and swap gapped even-odd pairs
+		for index in range(1, len(array) - gap, 2): # 									compare and swap gapped even-odd pairs
 			if array[index] > array[index + gap]:
 				array[index], array[index + gap] = array[index + gap], array[index]
-	insertion(array) # once gap is 1 or lower, call insertion to finish
+	insertion(array) #													once gap is 1 or lower, call insertion to finish
 
-def insertion(array): # build a growing sorted list by inserting each piece encountered where it fits in that list
+# build a growing sorted list by inserting each piece encountered where it fits in that list
+def insertion(array): 
 	for index in range(1, len(array)):
 		pointer = index - 1
 		index_value = array[index]
