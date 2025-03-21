@@ -1,25 +1,21 @@
 static void SibSort(double[] array)
 {
 	int gap = array.Length;
-	while (true)
+	while (gap > 3)
 	{
-		gap = (int)Math.Floor(gap * .75); // gap will determine how many indexes apart the comparisons happen
-		if (gap % 2 == 0) // shrink gap every loop
+		gap = (int)Math.Floor(gap * .75); //								gap will determine how many indexes apart the comparisons happen
+		if (gap % 2 == 0) //										shrink gap every loop
 		{
 			gap--; 
 		}
-		if (gap <= 1) // if gap is 1 or lower, break out of the while loop
-		{
-			break;
-		}
-		for (int index = 0; index < array.Length - gap; index += 2) // compare and swap gapped odd-even pairs
+		for (int index = 0; index < array.Length - gap; index += 2) //					compare and swap gapped odd-even pairs
 		{
 			if (array[index] > array[index + gap])
 			{
 				(array[index + gap], array[index]) = (array[index], array[index + gap]);
 			}
 		}
-		for (int index = 1; index < array.Length - gap; index += 2) // compare and swap gapped even-odd pairs
+		for (int index = 1; index < array.Length - gap; index += 2) //					compare and swap gapped even-odd pairs
 		{
 			if (array[index] > array[index + gap])
 			{
@@ -27,10 +23,11 @@ static void SibSort(double[] array)
 			}
 		}
 	}
-	Insertion(array); // once gap is 1 or lower, call insertion to finish
+	Insertion(array); //											once gap is 1 or lower, call insertion to finish
 }
 
-static void Insertion(double[] array) // build a growing sorted list by inserting each piece encountered where it fits in that list
+// build a growing sorted list by inserting each piece encountered where it fits in that list
+static void Insertion(double[] array)
 {
 	for (int index = 1; index < array.Length; index++)
 	{
