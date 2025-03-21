@@ -1,4 +1,4 @@
-function SibSort(array)
+function sibsort(array)
 {																				
 	let gap = array.length; //											gap will determine how many indexes apart the comparisons happen
 	while (gap > 3)
@@ -23,11 +23,11 @@ function SibSort(array)
 			}
 		}
 	}
-	Insertion(array); //												call insertion to finish
+	insertion(array); //												call insertion to finish
 }
 
 // build a growing sorted list by inserting each piece encountered where it fits in that list
-function Insertion(array)															
+function insertion(array)															
 {
 	for (let index = 1; index < array.length; index++)
 	{
