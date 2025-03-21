@@ -1,21 +1,21 @@
-function sibsort(array)
+function SibSort(array)
 {																				
-	let gap = array.length; //										gap will determine how many indexes apart the comparisons happen
+	let gap = array.length; //											gap will determine how many indexes apart the comparisons happen
 	while (gap > 3)
 	{
-		gap = Math.floor(gap * .75) //									shrink gap every loop and keep it odd
+		gap = Math.floor(gap * .75) //										shrink gap every loop and keep it odd
 		if (gap % 2 == 0)
 		{
 			gap--;
 		}
-		for (let index = 0; index < array.length - gap; index += 2) //					compare and swap gapped odd-even pairs
+		for (let index = 0; index < array.length - gap; index += 2) //						compare and swap gapped odd-even pairs
 		{
 			if (array[index] > array[index + gap])
 			{
 				[array[index], array[index + gap]] = [array[index + gap], array[index]];
 			}
 		}
-		for (let index = 1; index < array.length - gap; index += 2) //					compare and swap gapped even-odd pairs
+		for (let index = 1; index < array.length - gap; index += 2) //						compare and swap gapped even-odd pairs
 		{
 			if (array[index] > array[index + gap])
 			{
@@ -23,11 +23,11 @@ function sibsort(array)
 			}
 		}
 	}
-	insertion(array); //											call insertion to finish
+	Insertion(array); //												call insertion to finish
 }
 
 // build a growing sorted list by inserting each piece encountered where it fits in that list
-function insertion(array)															
+function Insertion(array)															
 {
 	for (let index = 1; index < array.length; index++)
 	{
