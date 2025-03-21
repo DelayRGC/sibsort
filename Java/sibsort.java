@@ -1,16 +1,12 @@
 static void SibSort(double[] array)
 {
 	int gap = array.length;
-	while (true)
+	while (gap > 3)
 	{
 		gap = (int)Math.floor(gap * .75);
 		if (gap % 2 == 0)
 		{
 			gap--; 
-		}
-		if (gap <= 1)
-		{
-			break;
 		}
 		for (int index = 0; index < array.length - gap; index += 2)
 		{
