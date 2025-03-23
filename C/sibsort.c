@@ -2,11 +2,10 @@
 #include <string.h>
 #include "sibsort.h"
 
-#define SMALLEST_INCLUDED_GAP 3
-
 int sibsort(void*, size_t, size_t, int (*)(void*, void*));
 int insertion(void*, size_t, size_t, int (*)(void*, void*));
 
+const size_t SMALLEST_INCLUDED_GAP = 3;
 char* index_value;
 
 /*
