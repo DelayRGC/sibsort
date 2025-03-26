@@ -5,6 +5,7 @@
 int sibsort(void*, size_t, size_t, int (*)(void*, void*));
 int insertion(void*, size_t, size_t, int (*)(void*, void*));
 
+const size_t SMALLEST_INCLUDED_GAP = 3;
 char* index_value;
 
 /*
@@ -18,7 +19,7 @@ int sibsort(void* arr, size_t length, size_t size, int (*cmp)(void*, void*)) {
 	if (arr == NULL || !length || !size || (index_value = (char*)malloc(size)) == NULL) return -1;
 	char* array = (char*)arr;
 	size_t gap = length;
-	while (gap > 1) {
+	while (gap > SMALLEST_INCLUDED_GAP) {
 		gap *= .75;
 		if (gap % 2 == 0) {
 			gap--;
@@ -42,10 +43,12 @@ int sibsort(void* arr, size_t length, size_t size, int (*cmp)(void*, void*)) {
 			}
 		}
 	}
+	//no need to free the buffer here, insertion() will later
 	return insertion(array, length, size, cmp);
 }
 
 int insertion(void* arr, size_t length, size_t size, int (*cmp)(void*, void*)) {
+	//if called by itself, give a chance to allocate the temporary buffer
 	if (index_value == NULL) index_value = (char*) malloc(size);
 	if (arr == NULL || !length || !size || index_value == NULL) return -1;
 	char* array = (char*)arr;
