@@ -1,51 +1,55 @@
-static void SibSort(double[] array)
+public static int[] SibSort(int[] array) //					Change datatype of array for your use case!
 {
-	int gap = array.length;
-	while (gap > 3)
+	int gap = (int) (array.length * 0.75);
+	if (gap % 2 == 0)
 	{
-		gap = (int)Math.floor(gap * .75);
+		gap--;
+	}
+	while (gap > 1)
+	{
+		System.out.println(gap);
+		for (int i = 0; i + gap < array.length; i += 2)
+		{
+			if (array[i] > array[i + gap])
+			{
+				Swap(array, i, i + gap);
+			}
+		}
+		for (int i = 1; i + gap < array.length; i += 2)
+		{
+			if (array[i] > array[i + gap])
+			{
+				Swap(array, i, i + gap);
+			}
+		}
+		gap = (int) (gap * 0.75);
 		if (gap % 2 == 0)
 		{
-			gap--; 
-		}
-		for (int index = 0; index < array.length - gap; index += 2)
-		{
-			if (array[index] > array[index + gap])
-			{
-				double temp = array[index];
-				array[index] = array[index + gap];
-				array[index + gap] = temp;
-			}
-		}
-		for (int index = 1; index < array.length - gap; index += 2)
-		{
-			if (array[index] > array[index + gap])
-			{
-				double temp = array[index];
-				array[index] = array[index + gap];
-				array[index + gap] = temp;
-			}
+			gap--;
 		}
 	}
-	Insertion(array);
+	array = Insertion(array);
+	return array;
 }
 
-static void Insertion(double[] array)
+public static int[] Insertion(int[] array) //					Change datatype of array for your use case!
 {
-	for (int index = 1; index < array.length; index++)
+	for (int i = 1; i < array.length; i++)
 	{
-		int pointer = index - 1;
-		double indexValue = array[index];
-		while (indexValue < array[pointer])
+		int iValue = array[i];
+		for (int j = i - 1; j >= 0 && array[j] > iValue; j--)
 		{
-			double temp = array[pointer];
-			array[pointer] = array[pointer + 1];
-			array[pointer + 1] = temp;
-			if (pointer > 0)
-			{
-				pointer--;
-			}
+			Swap(array, j, j + 1);
 		}
 	}
+	return array;
 }
-//By RapskaL23
+
+public static int[] Swap(int[] array, int a, int b)
+{
+	int temp = array[a];
+	array[a] = array[b];
+	array[b] = temp;
+	return array;
+}
+// by siblinghood
