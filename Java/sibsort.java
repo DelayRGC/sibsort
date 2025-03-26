@@ -12,14 +12,14 @@ public static int[] SibSort(int[] array) //					Change datatype of array for you
 		{
 			if (array[i] > array[i + gap])
 			{
-				Swap(array, i, i + gap);
+				array = Swap(array, i, i + gap);
 			}
 		}
 		for (int i = 1; i + gap < array.length; i += 2)
 		{
 			if (array[i] > array[i + gap])
 			{
-				Swap(array, i, i + gap);
+				array = Swap(array, i, i + gap);
 			}
 		}
 		gap = (int) (gap * 0.75);
@@ -39,7 +39,7 @@ public static int[] Insertion(int[] array) //					Change datatype of array for y
 		int iValue = array[i];
 		for (int j = i - 1; j >= 0 && array[j] > iValue; j--)
 		{
-			Swap(array, j, j + 1);
+			array = Swap(array, j, j + 1);
 		}
 	}
 	return array;
