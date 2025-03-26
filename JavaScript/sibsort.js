@@ -1,45 +1,41 @@
 function sibsort(array)
 {																				
-	let gap = array.length; //											gap will determine how many indexes apart the comparisons happen
-	while (gap > 3)
+	let gap = Math.floor(array.length * .75); //								gap will determine how many indexes apart the comparisons happen
+	while (gap > 1)
 	{
-		gap = Math.floor(gap * .75) //										shrink gap every loop and keep it odd
+		for (let i = 0; i < array.length - gap; i += 2) //						compare and swap gapped odd-even pairs
+		{
+			if (array[i] > array[i + gap])
+			{
+				[array[i], array[i + gap]] = [array[i + gap], array[i]];
+			}
+		}
+		for (let i = 1; i < array.length - gap; i += 2) //						compare and swap gapped even-odd pairs
+		{
+			if (array[i] > array[i + gap])
+			{
+				[array[i], array[i + gap]] = [array[i + gap], array[i]];
+			}
+		}
+		gap = Math.floor(gap * .75) //									shrink gap every loop and keep it odd
 		if (gap % 2 == 0)
 		{
 			gap--;
 		}
-		for (let index = 0; index < array.length - gap; index += 2) //						compare and swap gapped odd-even pairs
-		{
-			if (array[index] > array[index + gap])
-			{
-				[array[index], array[index + gap]] = [array[index + gap], array[index]];
-			}
-		}
-		for (let index = 1; index < array.length - gap; index += 2) //						compare and swap gapped even-odd pairs
-		{
-			if (array[index] > array[index + gap])
-			{
-				[array[index], array[index + gap]] = [array[index + gap], array[index]];
-			}
-		}
 	}
-	insertion(array); //												call insertion to finish
+	insertion(array); //											call insertion to finish
 }
 
 // build a growing sorted list by inserting each piece encountered where it fits in that list
-function insertion(array)															
+function insertion(array)
 {
-	for (let index = 1; index < array.length; index++)
+	for (let i = 1; i < array.length; i++)
 	{
-		let pointer = index - 1;
-		let indexValue = array[index];
-		while (indexValue < array[pointer])
+		iValue = array[i];
+		for (let j = i - 1; j >= 0 && array[j] > iValue; j--)
 		{
-			[array[pointer], array[pointer + 1]] = [array[pointer + 1], array[pointer]];
-			if (pointer > 0)
-			{
-				pointer--;
-			}
+			[array[j], array[j + 1]] = [array[j + 1], array[j]]
 		}
 	}
+	return array;
 }
